@@ -7,8 +7,8 @@ pipeline:
   properties:
     ci:
       codebase:
-        connectorRef: account.github
-        repoName: SmartInternship
+        connectorRef: githubConnector
+        repoName: smartinternship-backend
         build: <+input>
   stages:
     - stage:
@@ -20,7 +20,7 @@ pipeline:
           infrastructure:
             type: KubernetesDirect
             spec:
-              connectorRef: account.k8sCluster
+              connectorRef: k8sCluster
               namespace: harness-delegate
               resources:
                 limits:
