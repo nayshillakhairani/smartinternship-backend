@@ -1,0 +1,72 @@
+[
+  {
+    "element": "hero",
+    "title": "Garuda Smart Internship",
+    "content": "<p>Jelajahi serangkaian pengalaman berkesan dan bermakna melalui program Garuda Smart Internship!</p>"
+  },
+  {
+    "element": "about_us",
+    "title": "Apa itu Garuda Smart Internship?",
+    "content": "<p>Garuda Smart Internship merupakan peluang magang yang ditawarkan untuk siswa dan mahasiswa yang ingin meraih pengalaman magang yang bermutu dan berkesan. Program ini dirancang untuk memberikan kesempatan kepada peserta magang untuk mengembangkan pengetahuan, keterampilan, dan wawasan praktis dalam lingkungan kerja. Dengan mendaftar pada program ini, peserta magang dapat memperoleh pengalaman magang yang positif dan berharga, memberikan kontribusi secara efektif dalam dunia profesional, serta membangun dasar yang kokoh untuk karir masa depan mereka.</p>"
+  },
+  {
+    "element": "features",
+    "title": "Apa saja manfaat magang diGaruda Cyber Indonesia?"
+  },
+  {
+    "element": "faq",
+    "title": "Pertanyaan Umum"
+  },
+  {
+    "element": "footer",
+    "title": "KONTAK",
+    "email": "admin@garudacyber.co.id",
+    "phone": "+628117692800"
+  },
+  {
+    "parent_id": 3,
+    "element": "features",
+    "title": "Peluang Kerja",
+    "content": "<p>Magang yang menjanjikan peluang karir di dunia professional</p>",
+    "image": "/cms/beranda/job_hunt.png"
+  },
+  {
+    "parent_id": 3,
+    "element": "features",
+    "title": "Referensi karir masa depan",
+    "content": "<p>Memberikan referensi yang kuat saat memasuki dunia kerja setelah lulus</p>",
+    "image": "/cms/beranda/competitive.png"
+  },
+  {
+    "parent_id": 3,
+    "element": "features",
+    "title": "Sertifikat",
+    "content": "<p>Raihan sertifikat sebagai bentuk penghargaan atas pencapaian selama magang</p>",
+    "image": "/cms/beranda/certificate.png"
+  },
+  {
+    "parent_id": 3,
+    "element": "features",
+    "title": "Penyempurnaan Soft Skill",
+    "content": "<p>Kerja tim, adaptabilitas, dan kemampuan berkomunikasi secara efektif</p>",
+    "image": "/cms/beranda/soft_skill.png"
+  },
+  {
+    "parent_id": 4,
+    "element": "faq",
+    "title": "Bagaimana cara registrasi akun Garuda Smart Internship?",
+    "content": "<p>Kunjungi halaman Garuda Smart Internship.</p>"
+  },
+  {
+    "parent_id": 4,
+    "element": "faq",
+    "title": "Bagaimana cara mengajukan magang di sistem Garuda Smart Internship?",
+    "content": "<p>1. Kunjungi halaman Garuda Smart Internship.<br>2. Klik tombol \"Masuk ke Akun\" yang terletak di pojok kanan atas.<br>3. Lakukan login menggunakan alamat email dan kata sandi yang sudah didaftarkan sebelumnya pada DAFTAR. Klik tombol \"Masuk\".<br>4. Klik tombol \"Cari Posisi\" yang berada di tengah-tengah halaman situs web Garuda Smart Internship.<br>5. Jika Anda belum mengisi data diri, Anda akan diarahkan untuk melengkapi informasi seperti Data Pribadi, Data Akademik, dan Periode Magang. Klik \"Selanjutnya\".<br>6. Lanjutkan ke halaman profil untuk memastikan data diri Anda terisi dengan benar.<br>7. Klik tombol \"Posisi\" yang berada di tengah atas laman web.<br>8. Pilih posisi magang yang sesuai dengan kriteria Anda.<br>9. Klik tombol \"Ajukan\" pada card posisi yang dipilih, dan Anda akan diminta untuk memastikan pilihan tersebut.<br>10. Proses pengajuan magang selesai. Tunggu konfirmasi status pendaftaran di laman Status Pendaftaran, dan periksa status pendaftaran secara berkala di halaman tersebut.</p>"
+  },
+  {
+    "parent_id": 4,
+    "element": "faq",
+    "title": "Apakah saya bisa mendaftar lebih dari 1 posisi dalam periode yang sama di sistem Garuda Smart Internship?",
+    "content": "<p>Calon pemagang boleh mendaftar ke lebih dari 1 posisi pada periode yang sama, namun calon pemagang hanya bisa aktif dalam 1 posisi saja dalam periode itu.</p>"
+  }
+]

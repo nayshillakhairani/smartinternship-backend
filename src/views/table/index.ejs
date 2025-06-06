@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= structuredData.meta.judul %></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <div class="mx-14 space-y-4 py-10">
+      <div class="flex items-center justify-center gap-5 border-b-4 pb-2">
+        <img
+          src="https://magang.garudacyber.co.id/assets/images/logo.png"
+          class="mx-auto w-52"
+          alt=""
+        />
+        <div>
+          <p class="text-2xl font-bold">PT. Garuda Cyber Indonesia</p>
+          <p class="text-xs">
+            JL. HR. Soebrantas, Sidomulyo Baru, Kec. Tampan, Kota Pekanbaru,
+            Riau 28293
+          </p>
+        </div>
+      </div>
+      <div class="w-full text-center font-bold text-xl">
+        <%= structuredData.meta.judul %>
+      </div>
+      <table class="text-xs w-full">
+        <tbody>
+          <tr>
+            <td class="w-24">Posisi</td>
+            <td>: <%= structuredData.meta.posisi %></td>
+          </tr>
+          <tr>
+            <td class="w-24">Tanggal Cetak</td>
+            <td>: <%= structuredData.meta.tanggal %></td>
+          </tr>
+          <% if (structuredData.meta.mentor) { %>
+          <tr>
+            <td class="w-24">Mentor</td>
+            <td>: <%= structuredData.meta.mentor %></td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+      <table class="h-fit w-full table-auto">
+        <thead class="items-center bg-[#C81E1E] text-white">
+          <tr class="border-b text-center font-bold">
+            <td class="py-1 text-xs text-center">No.</td>
+            <% Object.keys(structuredData.datas[0]).forEach((key) => { %>
+            <td class="py-1 text-xs px-2">
+              <%= key.charAt(0).toUpperCase() + key.slice(1) %>
+            </td>
+            <% }); %>
+          </tr>
+        </thead>
+        <tbody>
+          <% structuredData.datas.forEach(function(item, index) { %>
+          <tr class="border-b <%= index % 2 === 0 ? 'bg-[#F9E9E9]' : '' %>">
+            <td class="py-1 text-xs text-center whitespace-normal">
+              <%= index + 1 %>
+            </td>
+            <% Object.values(item).forEach(function(value) { %>
+            <td class="py-1 text-xs whitespace-normal px-2"><%= value %></td>
+            <% }); %>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,80 @@
+pipeline:
+  name: build-test-push
+  identifier: build_test_push
+  projectIdentifier: SmartInternship
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: account.github
+        repoName: SmartInternship
+        build: <+input>
+  stages:
+    - stage:
+        name: Build and Test
+        identifier: Build_and_Test
+        type: CI
+        spec:
+          cloneCodebase: true
+          infrastructure:
+            type: KubernetesDirect
+            spec:
+              connectorRef: account.k8sCluster
+              namespace: harness-delegate
+              resources:
+                limits:
+                  cpu: 1
+                  memory: 2Gi
+                requests:
+                  cpu: 0.5
+                  memory: 1Gi
+          execution:
+            steps:
+              - step:
+                  type: DockerBuild
+                  name: Build Docker image
+                  identifier: Build_Docker_image
+                  spec:
+                    connectorRef: account.harnessImage
+                    dockerfilePath: ./Dockerfile
+                    tags:
+                      - latest
+                    buildArgs:
+                      NPM_ARGS: --save-dev @babel/plugin-transform-modules-commonjs
+              - step:
+                  type: DockerPush
+                  name: Push Docker image with tag 1.0.0
+                  identifier: Push_Docker_image_with_tag_100
+                  spec:
+                    connectorRef: account.harnessImage
+                    repository: <+secrets.getValue("DOCKERHUB_USERNAME")>/smartinternship
+                    tag: 1.0.0
+                    imagePath: smartinternship
+              - step:
+                  type: Run
+                  name: Pull and Run Tests
+                  identifier: Pull_and_Run_Tests
+                  spec:
+                    connectorRef: account.harnessImage
+                    image: <+secrets.getValue("DOCKERHUB_USERNAME")>/smartinternship:latest
+                    shell: Sh
+                    command: npm run test
+
+connectors:
+  - name: DockerHub
+    identifier: dockerHub
+    type: DockerRegistry
+    spec:
+      dockerRegistryUrl: https://index.docker.io/v1/
+      auth:
+        type: UsernamePassword
+        spec:
+          username: <+secrets.getValue("DOCKERHUB_USERNAME")>
+          passwordRef: <+secrets.getValue("DOCKERHUB_PASSWORD")>
+
+secretManager:
+  name: harness-secrets
+  identifier: harness_secrets
+  type: KubernetesSecretManager
+  # Note: Actual secrets should be configured in Harness UI, not in this file

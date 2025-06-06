@@ -1,0 +1,14 @@
+[
+  {
+    "name": "ADMIN"
+  },
+  {
+    "name": "MENTOR"
+  },
+  {
+    "name": "USER"
+  },
+  {
+    "name": "SUPERADMIN"
+  }
+]

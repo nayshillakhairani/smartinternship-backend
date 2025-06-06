@@ -1,0 +1,385 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+  binaryTargets   = ["native", "debian-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum EvaluationType {
+  personal
+  competence
+}
+
+enum TypeTemplate {
+  sertifikat
+  penilaian
+}
+
+enum Element {
+  hero
+  about_us
+  features
+  faq
+  footer
+}
+
+enum StatusProject {
+  proses
+  diterima
+  revisi
+}
+
+enum StatusAdministrasi {
+  belumDiproses
+  diterima
+  proses
+  ditolak
+}
+
+enum StatusTesKemampuan {
+  belumDiproses
+  diterima
+  proses
+  ditolak
+}
+
+enum StatusWawancara {
+  belumDiproses
+  diterima
+  proses
+  ditolak
+}
+
+enum StatusPengajuan {
+  belumDiproses
+  proses
+  alumni
+  tes_kemampuan
+  ditolak
+  administrasi
+  wawancara
+  diterima
+}
+
+enum StatusUser {
+  belumDiproses
+  proses
+  lulus
+  tes_kemampuan
+  ditolak
+  administrasi
+  wawancara
+  diterima
+  alumni
+}
+
+enum StatusTestimoni {
+  diterima
+  proses
+  dipublish
+  unpublish
+}
+
+enum StatusPosisi {
+  publish
+  unpublish
+}
+
+model User {
+  id           Int            @id @default(autoincrement())
+  posisi_id    Int?
+  instansi_id  Int?
+  jurusan_id   Int?
+  role_id      Int
+  mentor_id    Int?
+  name         String         @db.VarChar(100)
+  image        String?        @db.Text
+  email        String         @unique @db.VarChar(100)
+  password     String         @db.VarChar(100)
+  nim          String?        @db.VarChar(100)
+  religion     String?
+  is_active    Boolean        @default(false)
+  activation   Boolean        @default(false)
+  kode_otp     Int?
+  status       StatusUser     @default(belumDiproses)
+  gender       String?        @db.VarChar(100)
+  phone        String?        @db.VarChar(100)
+  surat        String?        @db.VarChar(100)
+  cv           String?
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  jurusan      Jurusan?       @relation(fields: [jurusan_id], references: [id])
+  instansi     Instansi?      @relation(fields: [instansi_id], references: [id])
+  posisi       Posisi?        @relation(fields: [posisi_id], references: [id])
+  periode      Periode[]
+  pengajuan    Pengajuan[]
+  project      Project[]
+  role         Role           @relation(fields: [role_id], references: [id])
+  mentor       User?          @relation("Mentor for mentee", fields: [mentor_id], references: [id])
+  mentees      User[]         @relation("Mentor for mentee")
+  Notification Notification[]
+  Testimonial  Testimonial[]
+
+  @@map("user")
+}
+
+model Jurusan {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique @db.VarChar(100)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User[]
+
+  @@map("jurusan")
+}
+
+model Instansi {
+  id             Int      @id @default(autoincrement())
+  name           String   @unique @db.VarChar(200)
+  kuota          Int
+  kuota_tersedia Int
+  is_active      Boolean
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  user           User[]
+
+  @@map("instansi")
+}
+
+// ini berubah
+model Posisi {
+  id                         Int                          @id @default(autoincrement())
+  nama                       String                       @db.VarChar(100)
+  kuota                      Int
+  kuota_tersedia             Int
+  prasyarat                  String                       @db.Text
+  deskripsi                  String                       @db.Text
+  is_active                  Boolean                      @default(true)
+  status                     StatusPosisi                 @default(publish)
+  sertifikat                 String?                      @db.VarChar(100)
+  createdAt                  DateTime                     @default(now())
+  updatedAt                  DateTime                     @updatedAt
+  user                       User[]
+  pengajuan                  Pengajuan[]
+  EvaluationCriteriaTemplate EvaluationCriteriaTemplate[]
+
+  @@map("posisi")
+}
+
+model Periode {
+  id                Int         @id @default(autoincrement())
+  user_id           Int
+  tanggal_pengajuan String      @db.VarChar(100)
+  tanggal_selesai   String      @db.VarChar(100)
+  jenis_pengajuan   String?     @db.VarChar(100)
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+  is_active         Boolean     @default(false)
+  user              User        @relation(fields: [user_id], references: [id])
+  pengajuan         Pengajuan[]
+
+  @@map("periode")
+}
+
+model Pengajuan {
+  id                          Int                @id @default(autoincrement())
+  user_id                     Int
+  posisi_id                   Int
+  periode_id                  Int
+  is_active                   Boolean?
+  status_administrasi         StatusAdministrasi @default(belumDiproses)
+  status_tes_kemampuan        StatusTesKemampuan @default(belumDiproses)
+  status_wawancara            StatusWawancara    @default(belumDiproses)
+  status                      StatusPengajuan    @default(belumDiproses)
+  tanggal_wawancara           String?            @db.VarChar(100)
+  tanggal_awal_tes_kemampuan  String?            @db.VarChar(100)
+  tanggal_akhir_tes_kemampuan String?            @db.VarChar(100)
+  link_tes_kemampuan          String?            @db.Text
+  link_wawancara              String?            @db.Text
+  createdAt                   DateTime           @default(now())
+  updatedAt                   DateTime           @updatedAt
+  user                        User               @relation(fields: [user_id], references: [id])
+  posisi                      Posisi             @relation(fields: [posisi_id], references: [id])
+  periode                     Periode            @relation(fields: [periode_id], references: [id])
+  sertifikat                  SertifikatMentee?
+  project                     Project[]
+  Evaluation                  Evaluation[]
+
+  @@map("pengajuan")
+}
+
+model SertifikatMentee {
+  id           Int       @id @default(autoincrement())
+  pengajuan_id Int       @unique
+  location     String    @db.Text
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  pengajuan    Pengajuan @relation(fields: [pengajuan_id], references: [id])
+
+  @@map("sertifikat_mentee")
+}
+
+model Project {
+  id            Int             @id @default(autoincrement())
+  user_id       Int
+  pengajuan_id  Int
+  title         String          @db.VarChar(200)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  user          User            @relation(fields: [user_id], references: [id])
+  pengajuan     Pengajuan       @relation(fields: [pengajuan_id], references: [id])
+  ProjectDetail ProjectDetail[]
+
+  @@map("project")
+}
+
+model ProjectDetail {
+  id            Int           @id @default(autoincrement())
+  project_id    Int
+  description   String        @db.Text
+  status        StatusProject @default(proses)
+  percentage    Int
+  revision_note String?       @db.Text
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  project       Project       @relation(fields: [project_id], references: [id])
+}
+
+model Notification {
+  id        Int      @id @default(autoincrement())
+  user_id   Int
+  title     String   @db.VarChar(200)
+  subtitle  String   @db.Text
+  is_viewed Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [user_id], references: [id])
+
+  @@map("notification")
+}
+
+model Storage {
+  name     String @unique
+  location String @db.Text
+
+  @@map("storage")
+}
+
+model Role {
+  id                Int                 @id @default(autoincrement())
+  name              String              @unique @db.VarChar(100)
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  RoleHasPermission RoleHasPermission[]
+  User              User[]
+
+  @@map("roles")
+}
+
+model Permission {
+  id                Int                 @id @default(autoincrement())
+  name              String              @unique @db.VarChar(100)
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  RoleHasPermission RoleHasPermission[]
+
+  @@map("permissions")
+}
+
+model RoleHasPermission {
+  id            Int        @id @default(autoincrement())
+  role_id       Int
+  permission_id Int
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  role          Role       @relation(fields: [role_id], references: [id])
+  permission    Permission @relation(fields: [permission_id], references: [id])
+
+  @@map("role_has_permissions")
+}
+
+model Testimonial {
+  id        Int             @id @default(autoincrement())
+  user_id   Int
+  mentor_id Int
+  status    StatusTestimoni @default(proses)
+  content   String          @db.Text
+  publish   Boolean         @default(false)
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+  user      User            @relation(fields: [user_id], references: [id])
+
+  @@map("testimonials")
+}
+
+model Evaluation {
+  id              Int            @id @default(autoincrement())
+  pengajuan_id    Int
+  evaluation_name String
+  evaluation_type EvaluationType
+  value           Int
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  pengajuan       Pengajuan      @relation(fields: [pengajuan_id], references: [id])
+
+  @@map("evaluations")
+}
+
+model EvaluationCriteriaTemplate {
+  id              Int            @id @default(autoincrement())
+  position_id     Int
+  evaluation_name String
+  evaluation_type EvaluationType
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  position        Posisi         @relation(fields: [position_id], references: [id])
+
+  @@map("evaluation_criteria_templates")
+}
+
+model CmsArticle {
+  id        Int      @id @default(autoincrement())
+  title     String   @db.VarChar(200)
+  content   String   @db.Text
+  slug      String   @db.Text
+  thumbnail String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@fulltext([title])
+  @@fulltext([title, content])
+  @@map("cms_articles")
+}
+
+model CmsDashboard {
+  id           Int            @id @default(autoincrement())
+  parent_id    Int?
+  element      Element
+  title        String
+  content      String?        @db.Text
+  image        String?        @db.Text
+  email        String?        @db.VarChar(100)
+  phone        String?        @db.VarChar(100)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  parent       CmsDashboard?  @relation("sub content for content", fields: [parent_id], references: [id])
+  sub_contents CmsDashboard[] @relation("sub content for content")
+
+  @@map("cms_dashboards")
+}
+
+model Setting {
+  key       String   @id @unique
+  value     String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("settings")
+}

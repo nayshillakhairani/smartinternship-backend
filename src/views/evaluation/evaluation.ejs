@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <div class="flex flex-col gap-10">
+      <div class="flex justify-center">
+        <img src="https://garudacyber.co.id/images/internet/logo.png" class="mt-10 w-52" alt="" />
+      </div>
+      <header class="flex flex-col items-center justify-center text-xl">
+        <h2>PENILAIAN PRAKTIK KERJA LAPANGAN</h2>
+        <h2>PT GARUDA CYBER INDONESIA</h2>
+      </header>
+      <section class="mx-10 flex justify-center gap-3">
+        <!-- Personal Evaluations Table -->
+        <table class="h-fit w-full table-fixed border">
+          <thead class="items-center bg-[#C81E1E] text-white">
+            <tr class="border-b">
+              <td class="py-1 text-center w-2/12">No.</td>
+              <td class="py-1 w-7/12">Komponen Penilaian Personal</td>
+              <td class="py-1 text-center w-3/12">Nilai</td>
+            </tr>
+          </thead>
+          <tbody>
+            <% evaluations.personal.forEach(function(evaluation, index) { %>
+              <tr class="border-b <%= index % 2 === 0 ? 'bg-[#F9E9E9]' : '' %>">
+                <td class="py-1 text-center"><%= evaluation.no %></td>
+                <td class="py-1"><%= evaluation.evaluation_name %></td>
+                <td class="py-1 text-center"><%= evaluation.value %></td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+
+        <!-- Competence Evaluations Table -->
+        <table class="h-fit w-full table-fixed border">
+          <thead class="items-center bg-[#C81E1E] text-white">
+            <tr class="border-b">
+              <td class="py-1 text-center w-2/12">No.</td>
+              <td class="py-1 w-7/12">Komponen Penilaian Kompetensi</td>
+              <td class="py-1 text-center w-3/12">Nilai</td>
+            </tr>
+          </thead>
+          <tbody>
+            <% evaluations.competence.forEach(function(evaluation, index) { %>
+              <tr class="border-b <%= index % 2 === 0 ? 'bg-[#F9E9E9]' : '' %>">
+                <td class="py-1 text-center"><%= evaluation.no %></td>
+                <td class="py-1"><%= evaluation.evaluation_name %></td>
+                <td class="py-1 text-center"><%= evaluation.value %></td>
+              </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </section>
+      <footer class="mx-20 flex flex-col items-end">
+        <div class="flex flex-col gap-20">
+          <p>Mengetahui</p>
+          <div>
+            <p class="underline underline-offset-2">Kemal Aldian Faldano, S.AB</p>
+            <p>Koordinator Magang</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+[
+  {
+    "nama": "Programmer",
+    "kuota": 10,
+    "kuota_tersedia": 10,
+    "prasyarat": "menguasai seluruh bahasa pemograman",
+    "deskripsi": "Tugas seorang programmer meliputi menulis kode, memecahkan masalah teknis, menguji dan memperbaiki bug, serta berkolaborasi dengan tim untuk menciptakan solusi teknologi yang efisien dan inovatif. Kemampuan analitis, pemecahan masalah, dan pemrograman yang kuat adalah kualitas penting bagi seorang programmer."
+  },
+  {
+    "nama": "Implementator",
+    "kuota": 10,
+    "kuota_tersedia": 10,
+    "prasyarat": "menguasai seluruh bahasa pemograman",
+    "deskripsi": "Tugas implementator meliputi memasang system dan melakukan update system secara berkala, melakukan testing pada sistem, memberikan pengarahan pada user tentang cara penggunaan system yang benar,  menjawab pertanyaan user seputar kendala yang terjadi pada system, memberi laporan setiap permasalahan system pada tim Developer, dan membuat rencana kerja dan melaporkan hasil kerja secara rutin."
+  },
+  {
+    "nama": "Sistem Analyst",
+    "kuota": 10,
+    "kuota_tersedia": 10,
+    "prasyarat": "menguasai seluruh bahasa pemograman",
+    "deskripsi": "Tugas system analyst meliputi memelihara dan mengatasi masalah dalam database dan sistem penyimpanan data, melakukan riset tren teknologi informasi, mengidentifikasi kebutuhan untuk tim IT, merancang dan mengimplementasikan solusi teknologi khusus, meningkatkan fungsionalitas dan kinerja sistem yang telah ada, menguji sistem baru, menganalisa cost dan benefit pada sebuah peningkatan sistem, melatih end user dan menulis instruksi manual untuk pegawai dan pengguna, mengkomunikasikan keputusan strategis dengan departemen IT lainnya."
+  },
+  {
+    "nama": "Marketing",
+    "kuota": 10,
+    "kuota_tersedia": 10,
+    "prasyarat": "menguasai seluruh bahasa pemograman",
+    "deskripsi": "Tugas marketing adalah memproduksi materi marketing, promosi, manajemen kampanye marketing, mengawasi vendor, melakukan riset pasar dan konsumen, mengkomunikasikan perusahaan secara internal."
+  },
+  {
+    "nama": "Videographer",
+    "kuota": 10,
+    "kuota_tersedia": 10,
+    "prasyarat": "menguasai seluruh bahasa pemograman",
+    "deskripsi": "Tugas videographer meliputi mengatur pencahayaan, framing, angle dalam perekaman, merencanakan konsep juga skrip video, mengedit video memakai perangkat lunak editing video, mengoperasikan kamera. menambah musik, efek visual, hingga suara, menyusun adegan supaya muncul narasi menarik, memastikan kualitas video sesuai standar."
+  },
+  {
+    "nama": "Content Creator",
+    "kuota": 10,
+    "kuota_tersedia": 10,
+    "prasyarat": "menguasai seluruh bahasa pemograman",
+    "deskripsi": "Tugas content creator meliputi riset topik,  merencanakan tema, menulis, mengedit, mempublikasikan konten mereka. pembuatan naskah, pengambilan gambar atau rekaman video, editing, dan interaksi dengan audiens melalui komentar di berbagai platform. "
+  },
+  {
+    "nama": "Desain Grafis",
+    "kuota": 10,
+    "kuota_tersedia": 10,
+    "prasyarat": "menguasai seluruh bahasa pemograman",
+    "deskripsi": "Tugas design grafis meliputi membuat grafik visual menggunakan perangkat lunak komputer atau dengan tangan, membuat ilustrasi atau gambar yang mengidentifikasikan pesan dari sebuah produk. membuat bentuk-bentuk grafis seperti ilustrasi produk, logo, dan website. memilih warna, gambar, font, dan juga layout."
+  }
+]

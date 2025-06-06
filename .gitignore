@@ -1,0 +1,9 @@
+node_modules
+.env
+storage/dokumen/*
+storage/sertifikat/*
+storage/cms/*
+storage/template/*
+storage/image/*
+storage/temp/*
+prisma/migrations/*

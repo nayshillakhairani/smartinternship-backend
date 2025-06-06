@@ -1,0 +1,30 @@
+[
+    {
+        "name": "Super Admin",
+        "email": "superadmin@gmail.com",
+        "password": "password",
+        "role_id": 4,
+        "activation": true
+    },
+    {
+        "name": "Admin",
+        "email": "admin@gmail.com",
+        "password": "password",
+        "role_id": 1,
+        "activation": true
+    },
+    {
+        "name": "Mentor",
+        "email": "mentor@gmail.com",
+        "password": "password",
+        "role_id": 2,
+        "activation": true
+    },
+    {
+        "name": "Client",
+        "email": "client@gmail.com",
+        "password": "password",
+        "role_id": 3,
+        "activation": true
+    }
+]
