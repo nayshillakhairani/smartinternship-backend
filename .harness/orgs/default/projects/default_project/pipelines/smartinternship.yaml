@@ -1,0 +1,66 @@
+pipeline:
+  name: build-test-push
+  identifier: build_test_push
+  projectIdentifier: default_project
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: githubConnector
+        repoName: smartinternship-backend
+        build: <+input>
+  stages:
+    - stage:
+        name: Build and Test
+        identifier: Build_and_Test
+        type: CI
+        spec:
+          cloneCodebase: true
+          infrastructure:
+            type: KubernetesDirect
+            spec:
+              connectorRef: k8sCluster
+              namespace: harness-delegate
+              resources:
+                limits:
+                  cpu: 1
+                  memory: 2Gi
+                requests:
+                  cpu: 0.5
+                  memory: 1Gi
+          execution:
+            steps:
+              - step:
+                  type: BuildAndPushDockerRegistry
+                  name: Build Docker image
+                  identifier: Build_Docker_image
+                  spec:
+                    connectorRef: dockerHub
+                    repo: <+secrets.getValue("dockerhub_username")>/smartinternship
+                    tags:
+                      - latest
+                    dockerfile: Dockerfile
+                    buildArgs:
+                      NPM_ARGS: "--save-dev @babel/plugin-transform-modules-commonjs"
+              - step:
+                  type: BuildAndPushDockerRegistry
+                  name: Push Docker image with tag 1.0.0
+                  identifier: Push_Docker_image_with_tag_100
+                  spec:
+                    connectorRef: dockerHub
+                    repo: <+secrets.getValue("dockerhub_username")>/smartinternship
+                    tags:
+                      - 1.0.0
+                    dockerfile: Dockerfile
+                    buildArgs:
+                      NPM_ARGS: "--save-dev @babel/plugin-transform-modules-commonjs"
+              - step:
+                  type: Run
+                  name: Pull and Run Tests
+                  identifier: Pull_and_Run_Tests
+                  spec:
+                    connectorRef: dockerHub
+                    image: <+secrets.getValue("dockerhub_username")>/smartinternship:latest
+                    shell: Sh
+                    command: npm run test
